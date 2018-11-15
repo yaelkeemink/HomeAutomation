@@ -1,6 +1,6 @@
 ﻿using Hue;
 using Microsoft.Extensions.Configuration;
-using MorningAutomation.Helpers;
+using AutomationController.Helpers;
 using Serilog;
 using System;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading;
 using WebRequestHandler;
 using WebRequestHandler.Google;
 
-namespace MorningAutomation
+namespace AutomationController
 {
     public interface IAtomation
     {

@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace MorningAutomation.Helpers
+namespace AutomationController.Helpers
 {
     public static class ConfigurationExtension
     {

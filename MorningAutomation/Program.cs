@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace MorningAutomation
+namespace AutomationController
 {
     public class Program
     {

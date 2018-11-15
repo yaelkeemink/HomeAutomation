@@ -6,7 +6,7 @@ using System;
 using WebRequestHandler;
 using WebRequestHandler.Google;
 
-namespace MorningAutomation
+namespace AutomationController
 {
     internal class Bootstrap
     {
