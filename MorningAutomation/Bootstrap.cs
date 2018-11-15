@@ -1,10 +1,10 @@
-﻿using Hue;
+﻿using GoogleService;
+using Hue;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System;
 using WebRequestHandler;
-using WebRequestHandler.Google;
 
 namespace AutomationController
 {

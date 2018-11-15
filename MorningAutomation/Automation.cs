@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using WebRequestHandler;
-using WebRequestHandler.Google;
+using GoogleService;
 
 namespace AutomationController
 {

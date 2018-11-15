@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebRequestHandler", "WebReq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomationCore", "AutomationCore\AutomationCore.csproj", "{CBCF1D83-B8BF-4FC1-9590-CA5A6E9CB0DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolvoService", "VolvoService\VolvoService.csproj", "{83CDFE39-00FC-4CBD-A8FF-5A3D43FC7F45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleService", "GoogleService\GoogleService.csproj", "{2ADD91E3-D457-402D-9A8E-EEE0F1CD7AEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{CBCF1D83-B8BF-4FC1-9590-CA5A6E9CB0DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBCF1D83-B8BF-4FC1-9590-CA5A6E9CB0DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBCF1D83-B8BF-4FC1-9590-CA5A6E9CB0DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83CDFE39-00FC-4CBD-A8FF-5A3D43FC7F45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83CDFE39-00FC-4CBD-A8FF-5A3D43FC7F45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83CDFE39-00FC-4CBD-A8FF-5A3D43FC7F45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83CDFE39-00FC-4CBD-A8FF-5A3D43FC7F45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ADD91E3-D457-402D-9A8E-EEE0F1CD7AEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ADD91E3-D457-402D-9A8E-EEE0F1CD7AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ADD91E3-D457-402D-9A8E-EEE0F1CD7AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ADD91E3-D457-402D-9A8E-EEE0F1CD7AEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
