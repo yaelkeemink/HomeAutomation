@@ -1,5 +1,4 @@
-﻿using Hue;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using AutomationController.Helpers;
 using Serilog;
 using System;
@@ -7,6 +6,9 @@ using System.Linq;
 using System.Threading;
 using WebRequestHandler;
 using GoogleService;
+using AutomationCore.EventBus;
+using EasyNetQ.Topology;
+using HueService;
 
 namespace AutomationController
 {
@@ -17,11 +19,16 @@ namespace AutomationController
     public class Automation : IAtomation
     {
         private readonly IConfigurationSection _config;
+        private readonly IEventBusClient _rabbitMQClient;
         private readonly ILogger _logger;
         private readonly IGoogleController _googleController;
         private readonly IHueController _hueController;
         private readonly INotifier _notifier;
-        private DateTime currentTime = DateTime.Now;
+    
+        private DateTime _currentTime = DateTime.Now;
+        private readonly string _exchangeName = "HomeAutomationFanout";
+        private readonly string _queuename = "AutomationController";
+
         public Automation(ILogger logger, 
             IGoogleController googleController, 
             IHueController hueController, 
@@ -33,6 +40,10 @@ namespace AutomationController
             _hueController = hueController;
             _notifier = notifier;
             _config = config;
+            _rabbitMQClient =new RabbitMQClient()
+                .DeclareExchange(_exchangeName, ExchangeType.Fanout)
+                .DeclareQueue(_queuename)
+                .BindQueue(_queuename, _exchangeName);
         }
         public void Start()
         {
@@ -48,18 +59,18 @@ namespace AutomationController
             _logger.Information($"LightId: {_config["MainLight"]}");
 
             
-            var lastChecked = currentTime.AddMinutes(-6);
+            var lastChecked = _currentTime.AddMinutes(-6);
 
             while (true)
             {
-                if (currentTime.DayOfWeek != DayOfWeek.Sunday &&
-                    currentTime.DayOfWeek != DayOfWeek.Saturday &&
-                    ActiveHours(currentTime.TimeOfDay) &&
-                    lastChecked.AddMinutes(5) < currentTime)
+                if (_currentTime.DayOfWeek != DayOfWeek.Sunday &&
+                    _currentTime.DayOfWeek != DayOfWeek.Saturday &&
+                    ActiveHours(_currentTime.TimeOfDay) &&
+                    lastChecked.AddMinutes(5) < _currentTime)
                 {
                     _logger.Information($"Now checking");
                     int travelTime;
-                    if (ActiveMorningHours(currentTime.TimeOfDay))
+                    if (ActiveMorningHours(_currentTime.TimeOfDay))
                     {
                         travelTime = AsyncHelper.RunSync(() => _googleController.GetCurrentTravelTime(from, to));
                         _logger.Information($"Current travelTime: {travelTime}");
@@ -77,7 +88,7 @@ namespace AutomationController
                     _logger.Information("No need to check, checking again in 5 minutes");
                 }
                 Thread.Sleep(GetTimeSpanFromString(_config["CheckDelay"]));
-                currentTime = DateTime.Now;
+                _currentTime = DateTime.Now;
             }
         }
 
@@ -108,7 +119,7 @@ namespace AutomationController
             }
 
             string lightId = _config["MainLight"];
-            if (ActiveMorningHours(currentTime.TimeOfDay))
+            if (ActiveMorningHours(_currentTime.TimeOfDay))
             {
                 _hueController.SetLampColorAsync(lightId, color);
             }

@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GoogleService\GoogleService.csproj" />
-    <ProjectReference Include="..\Hue\Hue.csproj" />
+    <ProjectReference Include="..\Hue\HueService.csproj" />
     <ProjectReference Include="..\VolvoService\VolvoService.csproj" />
     <ProjectReference Include="..\WebRequestHandler\WebRequestHandler.csproj" />
   </ItemGroup>
