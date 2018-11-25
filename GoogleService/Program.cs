@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace GoogleService
 {
@@ -6,7 +6,15 @@ namespace GoogleService
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var serviceProvider = new Bootstrap()
+                .RegisterServices(new ServiceCollection())
+                .BuildServiceProvider();
+
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var eventProcessor = scope.ServiceProvider.GetService<IEventProcessor>();
+                eventProcessor.Run();
+            }
         }
     }
 }

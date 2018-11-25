@@ -11,11 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebRequestHandler", "WebReq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomationCore", "AutomationCore\AutomationCore.csproj", "{CBCF1D83-B8BF-4FC1-9590-CA5A6E9CB0DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolvoService", "VolvoService\VolvoService.csproj", "{83CDFE39-00FC-4CBD-A8FF-5A3D43FC7F45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolvoService", "VolvoService\VolvoService.csproj", "{83CDFE39-00FC-4CBD-A8FF-5A3D43FC7F45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleService", "GoogleService\GoogleService.csproj", "{2ADD91E3-D457-402D-9A8E-EEE0F1CD7AEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleService", "GoogleService\GoogleService.csproj", "{2ADD91E3-D457-402D-9A8E-EEE0F1CD7AEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService", "NotificationService\NotificationService.csproj", "{A2A3253C-233D-4FF2-AC39-A525D6E7B636}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService", "NotificationService\NotificationService.csproj", "{A2A3253C-233D-4FF2-AC39-A525D6E7B636}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestProjects", "TestProjects", "{95231085-B97E-41E1-92B3-5FA7627144CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HueService.Test", "VolvoService.Tests\HueService.Test.csproj", "{7E2D99DC-CBF7-46BB-8159-E1C271E50434}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,9 +55,16 @@ Global
 		{A2A3253C-233D-4FF2-AC39-A525D6E7B636}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2A3253C-233D-4FF2-AC39-A525D6E7B636}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2A3253C-233D-4FF2-AC39-A525D6E7B636}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E2D99DC-CBF7-46BB-8159-E1C271E50434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E2D99DC-CBF7-46BB-8159-E1C271E50434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E2D99DC-CBF7-46BB-8159-E1C271E50434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E2D99DC-CBF7-46BB-8159-E1C271E50434}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7E2D99DC-CBF7-46BB-8159-E1C271E50434} = {95231085-B97E-41E1-92B3-5FA7627144CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {33818E47-4A49-4FD1-A002-1FAE69D3CDE7}

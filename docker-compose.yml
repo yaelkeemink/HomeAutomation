@@ -1,0 +1,16 @@
+version: "2"
+services:
+  eventbus:
+    container_name: eventbus
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    networks:
+      - voc
+    ports:
+      - 5672:5672
+      - 15672:15672
+networks:
+ voc:
+  driver: bridge

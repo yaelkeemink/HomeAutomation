@@ -2,8 +2,6 @@
 using EasyNetQ.Topology;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutomationCore.EventBus
 {
@@ -15,13 +13,14 @@ namespace AutomationCore.EventBus
 
         public RabbitMQClient()
         {
+            _exchanges = new Dictionary<string, IExchange>();
             _queues = new Dictionary<string, IQueue>();
             _bus = RabbitHutch.CreateBus("host=localhost").Advanced;
         }
         public RabbitMQClient DeclareExchange(string exchangeName, string type)
         {
             var exchange = _bus.ExchangeDeclare(exchangeName, type);
-            _exchanges.Add("exchangeName", exchange);
+            _exchanges.Add(exchangeName, exchange);
             return this;
         }
 

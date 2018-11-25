@@ -13,7 +13,7 @@ namespace AutomationController
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var automation = scope.ServiceProvider.GetService<IAtomation>();
+                var automation = scope.ServiceProvider.GetService<IAutomation>();
                 automation.Start();
             }
         }

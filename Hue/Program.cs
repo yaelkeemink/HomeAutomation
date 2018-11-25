@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace VolvoService
+namespace HueService
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
