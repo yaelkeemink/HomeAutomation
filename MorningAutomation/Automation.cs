@@ -44,6 +44,7 @@ namespace AutomationController
             if (body.EngineRunning)
             {
                 _checkDelay = new TimeSpan(8, 45, 0);
+                _logger.Information($"Check every {_checkDelay} minutes");
             }
         }
 
@@ -53,9 +54,9 @@ namespace AutomationController
             var lastChecked = _currentTime.AddMinutes(-6);
 
             while (true)
-            {
-                _logger.Information($"Check every {_checkDelay} minutes");
+            {                
                 _checkDelay = GetTimeSpanFromString(_config["CheckDelay"]);
+                _logger.Information($"Check every {_checkDelay} minutes");
                 if (_currentTime.DayOfWeek != DayOfWeek.Sunday &&
                     _currentTime.DayOfWeek != DayOfWeek.Saturday &&
                     ActiveMorningHours(_currentTime.TimeOfDay) &&

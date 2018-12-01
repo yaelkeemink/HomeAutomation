@@ -1,9 +1,19 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Q42.HueApi;
+using Q42.HueApi.ColorConverters;
+using Q42.HueApi.ColorConverters.HSB;
+using Q42.HueApi.Interfaces;
+using Serilog;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HueService.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class HueControllerTests
     {
         private readonly string _white = "FFFFFF";
         private readonly string _orange = "FFA500";
@@ -107,21 +117,49 @@ namespace HueService.Test
         public void SetLampColorAsync_SetsTheLampColor()
         {
             // Arrange
-            string lightId = "lightId221";
+            string uniqueId = "lightId221";
+            string lightId = "1";
             string expectedColor = _red;
-            IEnumerable<Light> lightList = new List<Light>() { new Light() { UniqueId = lightId } };
+            IEnumerable<Light> lightList = new List<Light>() { new Light() { UniqueId = uniqueId, Id = lightId } };
 
-            _loggerMock.Setup(m => m.Information(It.Is<string>(a => a.Contains(lightId) && a.Contains(expectedColor))));
+            RGBColor rgbColor = new RGBColor(expectedColor);
+            var command = new LightCommand();
+            command.TurnOn().SetColor(rgbColor);
+
+            _loggerMock.Setup(m => m.Information(It.Is<string>(a => a.Contains(uniqueId) && a.Contains(expectedColor))));
+            _hueClientMock.Setup(m => m.GetLightsAsync()).Returns(Task.FromResult(lightList));
+            _hueClientMock.Setup(m => m.SendCommandAsync(It.IsAny<LightCommand>(), It.Is<IEnumerable<string>>(lc => lc.Contains(lightId))));
+
+            var hueController = new HueController(_loggerMock.Object, _configMock.Object, _hueClientMock.Object);
+
+            //Act
+            var result = hueController.SetLampColorAsync(expectedColor, uniqueId);
+
+            //Assert
+            Assert.IsNotNull(result);
+            _loggerMock.Verify(m => m.Information(It.Is<string>(a => a.Contains(uniqueId) && a.Contains(expectedColor))), Times.Once);
+            _hueClientMock.Verify(m => m.SendCommandAsync(It.IsAny<LightCommand>(), It.Is<IEnumerable<string>>(lc => lc.Contains(lightId))), Times.Once);
+        }
+
+        [TestMethod]
+        public void SetLampColorAsync_CantFindLight()
+        {
+            // Arrange
+            string uniqueId = "lightId221";
+            string expectedColor = _red;
+            IEnumerable<Light> lightList = new List<Light>() { new Light() {UniqueId = "light1" } };
+
+            _loggerMock.Setup(m => m.Error(It.Is<string>(a => a.Contains(uniqueId) && a.Contains("Could not"))));
             _hueClientMock.Setup(m => m.GetLightsAsync()).Returns(Task.FromResult(lightList));
 
             var hueController = new HueController(_loggerMock.Object, _configMock.Object, _hueClientMock.Object);
 
             //Act
-            var result = hueController.SetLampColorAsync(expectedColor, lightId);
+            var result = hueController.SetLampColorAsync(expectedColor, uniqueId);
 
             //Assert
             Assert.IsNotNull(result);
-            _loggerMock.Verify(m => m.Information(It.Is<string>(a => a.Contains(lightId) && a.Contains(expectedColor))), Times.Once);
+            _loggerMock.Verify(m => m.Error(It.Is<string>(a => a.Contains(uniqueId) && a.Contains("Could not"))), Times.Once);
         }
     }
 }

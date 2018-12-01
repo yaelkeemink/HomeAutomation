@@ -55,7 +55,7 @@ namespace HueService
             var light = await GetLight(lightId);
             if (light != null)
             {
-                _logger.Information($"Changing light color for lamp {lightId} to {rgbColor}");
+                _logger.Information($"Changing light color for lamp {lightId} to {colorCode}");
                 await _hueClient.SendCommandAsync(command, new List<string> { light.Id });
             }
             else
